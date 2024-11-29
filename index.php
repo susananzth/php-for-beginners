@@ -57,19 +57,33 @@
             [
                 "nombre" => "El Coronel no tiene quien le escriba",
                 "autor" =>"Gabriel García Marquez",
+                "publicacion" => 1961,
                 "tienda" => "https://example.com"
             ],
             [
                 "nombre" => "Juan Salvador Gaviota",
                 "autor" =>"Richard Bach",
+                "publicacion" => 1970,
                 "tienda" => "https://example.com"
             ],
             [
                 "nombre" => "Manual de Carreño",
                 "autor" =>"Manuel Antonio Carreño",
+                "publicacion" => 1853,
                 "tienda" => "https://example.com"
             ]
         ];
+
+        function filtrarPorAutor($libros, $autor) {
+            $librosFiltrados = [];
+            foreach ($libros as $libro) {
+                if ($libro["autor"] == $autor) {
+                    $librosFiltrados[] = $libro;
+                }
+            }
+            return $librosFiltrados;
+        }
+        
     ?>
     <h2>Libros recomendados Asociativos</h2>
     <ul>
@@ -77,6 +91,16 @@
             <li>
                 <a href="<?= $libro["tienda"] ?>" target="_blank" rel="noopener noreferrer">
                     <?= $libro["nombre"] ?>™
+                </a>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+    <h2>Libros recomendados filtrados</h2>
+    <ul>
+        <?php foreach (filtrarPorAutor($librosAsociativos, "Gabriel García Marquez") as $libro) : ?>
+            <li>
+                <a href="<?= $libro["tienda"] ?>" target="_blank" rel="noopener noreferrer">
+                    <?= $libro["nombre"] ?>™ (<?= $libro['publicacion'] ?>) - por <?= $libro['autor'] ?>
                 </a>
             </li>
         <?php endforeach; ?>
