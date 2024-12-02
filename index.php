@@ -83,7 +83,31 @@
             }
             return $librosFiltrados;
         }
-        
+
+        function filtro($elementos, $llave, $valor) {
+            $elementosFiltrados = [];
+            foreach ($elementos as $elemento) {
+                if ($elemento[$llave] == $valor) {
+                    $elementosFiltrados[] = $elemento;
+                }
+            }
+            return $elementosFiltrados;
+        }
+        function filtro2($elementos, $function) {
+            $elementosFiltrados = [];
+            foreach ($elementos as $elemento) {
+                if ($function($elemento)) {
+                    $elementosFiltrados[] = $elemento;
+                }
+            }
+            return $elementosFiltrados;
+        }
+
+        $librosFiltrados = filtro($librosAsociativos, 'publicacion', 1853);
+        // Si quiero filtrar usando un >= puedo reescribir la función de esta forma
+        $librosFiltrados3 = filtro2($librosAsociativos, function ($libro) {
+            return $libro['publicacion'] >= 1950;
+        });
     ?>
     <h2>Libros recomendados Asociativos</h2>
     <ul>
@@ -98,6 +122,27 @@
     <h2>Libros recomendados filtrados</h2>
     <ul>
         <?php foreach (filtrarPorAutor($librosAsociativos, "Gabriel García Marquez") as $libro) : ?>
+            <li>
+                <a href="<?= $libro["tienda"] ?>" target="_blank" rel="noopener noreferrer">
+                    <?= $libro["nombre"] ?>™ (<?= $libro['publicacion'] ?>) - por <?= $libro['autor'] ?>
+                </a>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+
+    <h2>Libros recomendados filtrados 2</h2>
+    <ul>
+        <?php foreach ($librosFiltrados as $libro) : ?>
+            <li>
+                <a href="<?= $libro["tienda"] ?>" target="_blank" rel="noopener noreferrer">
+                    <?= $libro["nombre"] ?>™ (<?= $libro['publicacion'] ?>) - por <?= $libro['autor'] ?>
+                </a>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+    <h2>Libros recomendados filtrados 3</h2>
+    <ul>
+        <?php foreach ($librosFiltrados3 as $libro) : ?>
             <li>
                 <a href="<?= $libro["tienda"] ?>" target="_blank" rel="noopener noreferrer">
                     <?= $libro["nombre"] ?>™ (<?= $libro['publicacion'] ?>) - por <?= $libro['autor'] ?>
