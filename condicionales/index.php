@@ -106,6 +106,25 @@
     echo $mensaje;
 ?&gt;
 </code></pre>
+
+            <h4>Operador ternario</h4>
+            <?php
+                $libro = "El Principito";
+                $leido = true;
+
+                $mensaje = ($leido === true) ? "Has leido el libro '$libro'" : "NO has leido el libro '$libro'";
+            ?>
+            <div class="muestra">
+                <b>Muestra:</b>
+                <?= $mensaje ?>
+            </div>
+<pre><code>&lt;?php
+    $libro = "El Principito";
+    $leido = true;
+
+    $mensaje = ($leido === true) ? "Has leido el libro '$libro'" : "NO has leido el libro '$libro'";
+?&gt;
+</code></pre>
         </div> <!-- fin de contenedor -->
     </body>
 </html>
