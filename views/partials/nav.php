@@ -8,9 +8,9 @@
                 </div>
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
-                        <a href="/" aria-current="page" class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white">Inicio</a>
-                        <a href="/acerca.php" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white">Acerca de</a>
-                        <a href="/contacto.php" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white">Contacto</a>
+                        <a href="/" aria-current="page" class="<?= urlIs('/') ? 'bg-gray-900' : 'text-gray-300' ?> rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-white/5 hover:text-white">Inicio</a>
+                        <a href="/acerca.php" class="<?= urlIs('/acerca.php') ? 'bg-gray-900' : 'text-gray-300' ?> rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-white/5 hover:text-white">Acerca de</a>
+                        <a href="/contacto.php" class="<?= urlIs('/contacto.php') ? 'bg-gray-900' : 'text-gray-300' ?> rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-white/5 hover:text-white">Contacto</a>
                     </div>
                 </div>
             </div>
