@@ -82,6 +82,18 @@
                         'autor' => 'Rómulo Gallegos',
                         'año' => 1929,
                         'enlaceVenta' => 'https://ejemplo.com'
+                    ],
+                    [
+                        'nombre' => 'Las lanzas coloradas',
+                        'autor' => 'Arturo Uslar Pietri',
+                        'año' => 1931,
+                        'enlaceVenta' => 'https://ejemplo.com'
+                    ],
+                    [
+                        'nombre' => 'Memorias de Mamá Blanca',
+                        'autor' => 'Teresa de la Parra',
+                        'año' => 1929,
+                        'enlaceVenta' => 'https://ejemplo.com'
                     ]
                 ];
 
@@ -90,7 +102,7 @@
                     $librosFiltrados = [];
 
                     foreach ($libros as $libro) {
-                        if ($libro['autor'] == 'Miguel Otero Silva') {
+                        if ($libro['autor'] == $autor) {
                             $librosFiltrados[] = $libro;
                         }
                     }
@@ -138,6 +150,18 @@
             'autor' => 'Rómulo Gallegos',
             'año' => 1929,
             'enlaceVenta' => 'https://ejemplo.com'
+        ],
+        [
+            'nombre' => 'Las lanzas coloradas',
+            'autor' => 'Arturo Uslar Pietri',
+            'año' => 1931,
+            'enlaceVenta' => 'https://ejemplo.com'
+        ],
+        [
+            'nombre' => 'Memorias de Mamá Blanca',
+            'autor' => 'Teresa de la Parra',
+            'año' => 1929,
+            'enlaceVenta' => 'https://ejemplo.com'
         ]
     ];
 
@@ -146,7 +170,7 @@
         $librosFiltrados = [];
 
         foreach ($libros as $libro) {
-            if ($libro['autor'] == 'Miguel Otero Silva') {
+            if ($libro['autor'] == $autor) {
                 $librosFiltrados[] = $libro;
             }
         }
@@ -154,8 +178,134 @@
         return $librosFiltrados;
     }
 
-    // Así se llama la función co los parámetros:
+    // Llamar la función:
     $librosFiltrados = filtrarPorAutor($libros, 'Miguel Otero Silva');
+?&gt;
+
+&lt;!-- Así se muestra en el HTML --&gt;
+&lt;ul&gt;
+    &lt;?php foreach (filtrarPorAutor($libros, 'Miguel Otero Silva') as $libro) : ?&gt;
+        &lt;li&gt;
+            &lt;a href="&lt;?= $libro['enlaceVenta'] ?&gt;"&gt;
+                &lt;?= $libro['nombre'] ?&gt; (&lt;?= $libro['año'] ?&gt;) - De &lt;?= $libro['autor'] ?&gt;
+            &lt;/a&gt;
+        &lt;/li&gt;
+    &lt;?php endforeach; ?&gt;
+&lt;/ul&gt;
+</code></pre>
+
+            <h4>Uso de función anónima</h4>
+            <p>Una lista de elementos usando filtro con varios parámetros:</p>
+            <?php
+                // Declarar una función con parámetros de entrada.
+                // Creando una función anónima, sin nombre.
+                $filtrarPorAutor = function ($libros, $autor) {
+                    $librosFiltrados = [];
+
+                    foreach ($libros as $libro) {
+                        if ($libro['autor'] == $autor) {
+                            $librosFiltrados[] = $libro;
+                        }
+                    }
+
+                    return $librosFiltrados;
+                };
+
+                // Llamar la función anónima y se envían lops parámetros:
+                $librosFiltrados = $filtrarPorAutor($libros, 'Rómulo Gallegos');
+            ?>
+            <div class="muestra">
+                <b>Muestra:</b>
+                <ul>
+                    <?php foreach ($librosFiltrados as $libro) : ?>
+                        <li>
+                            <a href="<?= $libro['enlaceVenta'] ?>">
+                                <?= $libro['nombre'] ?> (<?= $libro['año'] ?>) - De <?= $libro['autor'] ?>
+                            </a>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+<pre><code>&lt;?php
+    // Declarar una función con parámetros de entrada.
+    // Creando una función anónima, sin nombre.
+    $filtrarPorAutor = function ($libros, $autor) {
+        $librosFiltrados = [];
+
+        foreach ($libros as $libro) {
+            if ($libro['autor'] == $autor) {
+                $librosFiltrados[] = $libro;
+            }
+        }
+
+        return $librosFiltrados;
+    };
+
+    // Llamar la función anónima y se envían lops parámetros:
+    $librosFiltrados = $filtrarPorAutor($libros, 'Rómulo Gallegos');
+?&gt;
+
+&lt;!-- Así se muestra en el HTML --&gt;
+&lt;ul&gt;
+    &lt;?php foreach ($librosFiltrados as $libro) : ?&gt;
+        &lt;li&gt;
+            &lt;a href="&lt;?= $libro['enlaceVenta'] ?&gt;"&gt;
+                &lt;?= $libro['nombre'] ?&gt; (&lt;?= $libro['año'] ?&gt;) - De &lt;?= $libro['autor'] ?&gt;
+            &lt;/a&gt;
+        &lt;/li&gt;
+    &lt;?php endforeach; ?&gt;
+&lt;/ul&gt;
+</code></pre>
+
+            <h4>Uso de función parametros de clave - valor</h4>
+            <p>Una lista de elementos usando filtro con varios parámetros:</p>
+            <?php
+                // Declarar una función más genérica con parámetros de entrada.
+                function filtro($items, $clave, $valor) {
+                    $itemsFiltrados = [];
+
+                    foreach ($items as $item) {
+                        if ($item[$clave] == $valor) {
+                            $itemsFiltrados[] = $item;
+                        }
+                    }
+
+                    return $itemsFiltrados;
+                };
+
+                // Llamar la función y elige los valores de filtrado:
+                $librosFiltrados = filtro($libros, 'autor', 'Teresa de la Parra');
+                $librosFiltrados = filtro($libros, 'año', '1968');
+            ?>
+            <div class="muestra">
+                <b>Muestra:</b>
+                <ul>
+                    <?php foreach ($librosFiltrados as $libro) : ?>
+                        <li>
+                            <a href="<?= $libro['enlaceVenta'] ?>">
+                                <?= $libro['nombre'] ?> (<?= $libro['año'] ?>) - De <?= $libro['autor'] ?>
+                            </a>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+<pre><code>&lt;?php
+    // Declarar una función más genérica con parámetros de entrada.
+    function filtro($items, $clave, $valor) {
+        $itemsFiltrados = [];
+
+        foreach ($items as $item) {
+            if ($item[$clave] == $valor) {
+                $itemsFiltrados[] = $item;
+            }
+        }
+
+        return $itemsFiltrados;
+    };
+
+    // Llamar la función y elige los valores de filtrado:
+    $librosFiltrados = filtro($libros, 'autor', 'Teresa de la Parra');
+    $librosFiltrados = filtro($libros, 'año', '1968');
 ?&gt;
 
 &lt;!-- Así se muestra en el HTML --&gt;
@@ -173,25 +323,32 @@
             <h4>Uso de función lambda</h4>
             <p>Una lista de elementos usando filtro con varios parámetros:</p>
             <?php
-                // Declarar una función con parámetros de entrada.
-                // Creando una función anónima, sin nombre, también llamada función lambda.
-                $filtrarPorAutor = function ($libros, $autor) {
-                    $librosFiltrados = [];
+                // Declarar una función lambda con parámetros de entrada.
+                // $función o $fn para indicar que uno de los parámetros es una función.
+                function filtroLambda($items, $fn) {
+                    $itemsFiltrados = [];
 
-                    foreach ($libros as $libro) {
-                        if ($libro['autor'] == $autor) {
-                            $librosFiltrados[] = $libro;
+                    foreach ($items as $item) {
+                        // Aquí usa la función que espera un parámetro
+                        // Así tenemos mayor control del uso de la condición.
+                        if ($fn($item)) {
+                            $itemsFiltrados[] = $item;
                         }
                     }
 
-                    return $librosFiltrados;
+                    return $itemsFiltrados;
                 };
 
-                // Llamar la función anónima y se envían lops parámetros:
-                $librosFiltrados = $filtrarPorAutor($libros, 'Miguel Otero Silva');
+                // Llamar la función y elige los valores de filtrado:
+                $librosFiltrados = filtroLambda($libros, function ($libro) {
+                    return $libro['año'] >= 1930;
+                });
+                $librosFiltrados = filtroLambda($libros, function ($libro) {
+                    return $libro['autor'] >= 'Rómulo Gallegos';
+                });
             ?>
             <div class="muestra">
-                <b>Muestra la lista de elementos filtrada:</b>
+                <b>Muestra:</b>
                 <ul>
                     <?php foreach ($librosFiltrados as $libro) : ?>
                         <li>
@@ -203,22 +360,29 @@
                 </ul>
             </div>
 <pre><code>&lt;?php
-    // Declarar una función con parámetros de entrada.
-    // Creando una función anónima, sin nombre, también llamada función lambda.
-    $filtrarPorAutor = function ($libros, $autor) {
-        $librosFiltrados = [];
+    // Declarar una función lambda con parámetros de entrada.
+    // $función o $fn para indicar que uno de los parámetros es una función.
+    function filtroLambda($items, $fn) {
+        $itemsFiltrados = [];
 
-        foreach ($libros as $libro) {
-            if ($libro['autor'] == $autor) {
-                $librosFiltrados[] = $libro;
+        foreach ($items as $item) {
+            // Aquí usa la función que espera un parámetro
+            // Así tenemos mayor control del uso de la condición.
+            if ($fn($item)) {
+                $itemsFiltrados[] = $item;
             }
         }
 
-        return $librosFiltrados;
+        return $itemsFiltrados;
     };
 
-    // Llamar la función anónima y se envían lops parámetros:
-    $librosFiltrados = $filtrarPorAutor($libros, 'Miguel Otero Silva');
+    // Llamar la función y elige los valores de filtrado:
+    $librosFiltrados = filtroLambda($libros, function ($libro) {
+        return $libro['año'] >= 1930;
+    });
+    $librosFiltrados = filtroLambda($libros, function ($libro) {
+        return $libro['autor'] >= 'Rómulo Gallegos';
+    });
 ?&gt;
 
 &lt;!-- Así se muestra en el HTML --&gt;
@@ -233,28 +397,19 @@
 &lt;/ul&gt;
 </code></pre>
 
-            <h4>Uso de función lambda con nombre</h4>
-            <p>Una lista de elementos usando filtro con varios parámetros:</p>
+            <h4>Uso de función 'array_filter'</h4>
+            <p>Una función integrada de php para trabajar con arreglos:</p>
             <?php
-                // Declarar una función más genérica con parámetros de entrada.
-                function filter($items, $clave, $valor) {
-                    $itemsFiltrados = [];
-
-                    foreach ($items as $item) {
-                        if ($item[$clave] == $valor) {
-                            $itemsFiltrados[] = $item;
-                        }
-                    }
-
-                    return $itemsFiltrados;
-                };
-
                 // Llamar la función y elige los valores de filtrado:
-                $librosFiltrados = filter($libros, 'autor', 'Miguel Otero Silva');
-                $librosFiltrados = filter($libros, 'año', '1968');
+                $librosFiltrados = array_filter($libros, function ($libro) {
+                    return $libro['año'] >= 1930;
+                });
+                $librosFiltrados = array_filter($libros, function ($libro) {
+                    return $libro['autor'] >= 'Rómulo Gallegos';
+                });
             ?>
             <div class="muestra">
-                <b>Muestra la lista de elementos filtrada:</b>
+                <b>Muestra:</b>
                 <ul>
                     <?php foreach ($librosFiltrados as $libro) : ?>
                         <li>
@@ -266,22 +421,13 @@
                 </ul>
             </div>
 <pre><code>&lt;?php
-    // Declarar una función más genérica con parámetros de entrada.
-    function filter($items, $clave, $valor) {
-        $itemsFiltrados = [];
-
-        foreach ($items as $item) {
-            if ($item[$clave] == $valor) {
-                $itemsFiltrados[] = $item;
-            }
-        }
-
-        return $itemsFiltrados;
-    };
-
     // Llamar la función y elige los valores de filtrado:
-    $librosFiltrados = $filter($libros, 'autor', 'Miguel Otero Silva');
-    $librosFiltrados = $filter($libros, 'año', '1968');
+    $librosFiltrados = array_filter($libros, function ($libro) {
+        return $libro['año'] >= 1930;
+    });
+    $librosFiltrados = array_filter($libros, function ($libro) {
+        return $libro['autor'] >= 'Rómulo Gallegos';
+    });
 ?&gt;
 
 &lt;!-- Así se muestra en el HTML --&gt;
