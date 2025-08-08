@@ -116,7 +116,41 @@
                     echo "Mi nombre es $nombre";
                 ?>
             </div>
-            <h4>Etiquetas de PHP</h4>
+
+            <h4>Variables super globales</h4>
+            <div class="muestra">
+                <b>Muestra:</b>
+                <?php
+                    echo 'hola, estoy mostrando una cadena de texto';
+
+                    var_dump([
+                        1, 2, 5, 54, 'Ahora estoy mostrando un arreglo'
+                    ]);
+
+                    var_dump($_SERVER);
+                    //var_dump($_GET);
+
+                    // Para interrumpir la ejecución del rograma.
+                    die();
+
+                    function dd($valor) {
+                        echo '<pre>';
+                        var_dump($valor);
+                        echo '</pre>';
+                        die();
+                    }
+                    dd($_GET);
+                ?>
+            </div>
+<pre><code>&lt;?php
+    echo 'hola, estoy mostrando una cadena de texto';
+
+    var_dump([
+        1, 2, 5, 54, 'Ahora estoy mostrando un arreglo'
+    ]);
+?&gt;
+</code></pre>
+            
 
         </div> <!-- fin de contenedor -->
     </body>
