@@ -32,15 +32,6 @@ Paso a paso de lo que debes ejecutar para tener el proyecto en su servidor local
     ```
  5. Te mostrará el enlace para acceder desde el navegador. Y listo! ya podrás visualizar e interactuar con el proyecto en local 😁
 
-## Construido con 🛠️
-
-Las herramientas que utilice para crear este proyecto:
-
-* Framework de PHP [Laravel](https://laravel.com/docs/8.x).
-* Toolkit de diseño [Bootstrap](https://getbootstrap.com/docs/5.0/getting-started/introduction/).
-* Libería de JavaScript [JQuery](https://jquery.com/).
-* Plugin de validación de formulario [JQueryValidation](https://jqueryvalidation.org/).
-
 ## Autores ✒️
 
 * **Susana Piñero** - *FrontEnd + BackEnd + Documentación* - GitLab: [susananzth](https://gitlab.com/susananzth) GitHub: [susananzth](https://github.com/susananzth)
